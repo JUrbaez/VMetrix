@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixtures/saucedemo';
-import { allure } from 'allure-playwright';
+import * as allure from 'allure-js-commons';
 
 test.describe('Checkout Flow', () => {
   test('UI-08: Complete full checkout flow (happy path)', async ({

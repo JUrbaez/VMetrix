@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixtures/saucedemo';
-import { allure } from 'allure-playwright';
+import * as allure from 'allure-js-commons';
 
 test.describe('Inventory - Product Sorting and Cart', () => {
   test('UI-01: Filter products by price Low to High', async ({ inventoryPage }) => {
