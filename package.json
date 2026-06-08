@@ -2,9 +2,10 @@
   "name": "vmetrix",
   "version": "1.0.0",
   "private": true,
-  "description": "VMetrix QA Automation Challenge - Playwright + TypeScript with POM, Allure reports",
+  "description": "VMetrix QA Automation Challenge - Playwright + TypeScript con POM y reportes Allure",
   "scripts": {
-    "test": "playwright test",
+    "test": "rm -rf allure-results && playwright test",
+    "test:report": "rm -rf allure-results && playwright test && allure generate allure-results --clean -o allure-report && allure open allure-report",
     "test:ui": "playwright test tests/ui",
     "test:ui:report": "playwright test tests/ui && allure generate allure-results --clean -o allure-report && allure open allure-report",
     "test:api": "playwright test tests/api",

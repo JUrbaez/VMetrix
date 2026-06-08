@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/saucedemo';
 import * as allure from 'allure-js-commons';
 
-test.describe('Inventory - Product Sorting and Cart', () => {
+test.describe('Inventario - Ordenamiento y carrito', () => {
   test('UI-03: Remover productos del carrito desde la página de inventario', async ({
     inventoryPage,
     cartPage,
@@ -41,22 +41,22 @@ test.describe('Inventory - Product Sorting and Cart', () => {
       expect(await cartPage.getItemCount()).toBe(1);
     });
   });
-  
+
   test('UI-06: Ordenar productos de menor a mayor segun su precio', async ({ inventoryPage }) => {
     await allure.epic('SauceDemo UI');
-    await allure.feature('Product Sorting');
-    await allure.story('Sort by price ascending');
+    await allure.feature('Filtros de ordenamiento');
+    await allure.story('Ordenar por precio ascendente');
     await allure.severity('normal');
 
-    await allure.step('Navigate to inventory page', async () => {
+    await allure.step('Navegar a la página de inventario', async () => {
       await inventoryPage.goto();
     });
 
-    await allure.step('Apply sort: Price (low to high)', async () => {
+    await allure.step('Aplicar filtro: Precio (menor a mayor)', async () => {
       await inventoryPage.filterBy('lohi');
     });
 
-    await allure.step('Verify products are sorted ascending by price', async () => {
+    await allure.step('Verificar que los productos están ordenados de menor a mayor precio', async () => {
       const prices = await inventoryPage.getProductPrices();
       expect(prices.length).toBeGreaterThan(0);
       for (let i = 1; i < prices.length; i++) {

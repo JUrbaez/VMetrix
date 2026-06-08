@@ -5,30 +5,30 @@ import {
   DummyUsersResponse,
 } from '../../utils/api-client';
 
-test.describe('API - Users', () => {
+test.describe('API - Usuarios', () => {
   let client: DummyJsonClient;
 
   test.beforeEach(({ request }) => {
     client = new DummyJsonClient(request);
   });
 
-  test('API-08: GET /users with pagination returns correct users list', async () => {
+  test('API-08: GET /users con paginación retorna la lista correcta de usuarios', async () => {
     await allure.epic('DummyJSON API');
-    await allure.feature('Users');
-    await allure.story('List users with pagination');
+    await allure.feature('Usuarios');
+    await allure.story('Listar usuarios con paginación');
     await allure.severity('normal');
 
     let response: Awaited<ReturnType<DummyJsonClient['getUsers']>>;
 
-    await allure.step('Send GET /users?limit=5&skip=0', async () => {
+    await allure.step('Enviar GET /users?limit=5&skip=0', async () => {
       response = await client.getUsers({ limit: 5, skip: 0 });
     });
 
-    await allure.step('Verify status 200', async () => {
+    await allure.step('Verificar estado 200', async () => {
       expect(response!.status()).toBe(200);
     });
 
-    await allure.step('Verify response returns exactly 5 users', async () => {
+    await allure.step('Verificar que la respuesta retorna exactamente 5 usuarios', async () => {
       const body: DummyUsersResponse = await response!.json();
       expect(body.users).toHaveLength(5);
       expect(body.limit).toBe(5);
@@ -36,7 +36,7 @@ test.describe('API - Users', () => {
       expect(body.total).toBeGreaterThan(5);
     });
 
-    await allure.step('Verify each user has id, firstName, lastName and email', async () => {
+    await allure.step('Verificar que cada usuario tiene id, firstName, lastName y email', async () => {
       const body: DummyUsersResponse = await response!.json();
       for (const user of body.users) {
         expect(user.id).toBeGreaterThan(0);
@@ -46,7 +46,7 @@ test.describe('API - Users', () => {
       }
     });
 
-    await allure.step('Verify skip pagination shifts results', async () => {
+    await allure.step('Verificar que la paginación con skip desplaza los resultados', async () => {
       const secondPage = await client.getUsers({ limit: 5, skip: 5 });
       expect(secondPage.status()).toBe(200);
       const firstBody: DummyUsersResponse = await response!.json();

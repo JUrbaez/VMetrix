@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/saucedemo';
 import * as allure from 'allure-js-commons';
 
-test.describe('Checkout Flow', () => {
+test.describe('Flujo de checkout', () => {
   test('UI-05: Verificar el flujo de checkout', async ({
     inventoryPage,
     cartPage,
@@ -10,26 +10,26 @@ test.describe('Checkout Flow', () => {
   }) => {
     await allure.epic('SauceDemo UI');
     await allure.feature('Checkout');
-    await allure.story('Happy path checkout');
+    await allure.story('Checkout exitoso');
     await allure.severity('blocker');
 
-    await allure.step('Navigate to inventory and add product to cart', async () => {
+    await allure.step('Navegar al inventario y agregar un producto al carrito', async () => {
       await inventoryPage.goto();
       await inventoryPage.addToCart('Sauce Labs Backpack');
     });
 
-    await allure.step('Go to cart', async () => {
+    await allure.step('Ir al carrito', async () => {
       await inventoryPage.goToCart();
       await cartPage.assertOnCartPage();
       await cartPage.assertItemInCart('Sauce Labs Backpack');
     });
 
-    await allure.step('Proceed to checkout', async () => {
+    await allure.step('Proceder al checkout', async () => {
       await cartPage.proceedToCheckout();
       await checkoutPage.assertOnStepOne();
     });
 
-    await allure.step('Fill checkout information', async () => {
+    await allure.step('Completar la información de checkout', async () => {
       await checkoutPage.fillInfo({
         firstName: 'John',
         lastName: 'Doe',
@@ -38,13 +38,13 @@ test.describe('Checkout Flow', () => {
       await checkoutPage.continue();
     });
 
-    await allure.step('Verify order summary', async () => {
+    await allure.step('Verificar el resumen del pedido', async () => {
       await checkoutPage.assertOnStepTwo();
       const total = await checkoutPage.getSummaryTotal();
       expect(total).toContain('Total');
     });
 
-    await allure.step('Finish purchase and verify confirmation', async () => {
+    await allure.step('Finalizar la compra y verificar la confirmación', async () => {
       await checkoutPage.finish();
       await checkoutPage.assertOrderComplete();
     });
@@ -57,10 +57,10 @@ test.describe('Checkout Flow', () => {
   }) => {
     await allure.epic('SauceDemo UI');
     await allure.feature('Checkout');
-    await allure.story('Missing required field validation');
+    await allure.story('Validación de campos requeridos');
     await allure.severity('critical');
 
-    await allure.step('Add product and navigate to checkout step 1', async () => {
+    await allure.step('Agregar producto y navegar al paso 1 del checkout', async () => {
       await inventoryPage.goto();
       await inventoryPage.addToCart('Sauce Labs Bike Light');
       await inventoryPage.goToCart();
@@ -68,7 +68,7 @@ test.describe('Checkout Flow', () => {
       await checkoutPage.assertOnStepOne();
     });
 
-    await allure.step('Submit form with only Last Name and Postal Code (no First Name)', async () => {
+    await allure.step('Enviar formulario solo con apellido y código postal (sin nombre)', async () => {
       await checkoutPage.fillInfo({
         firstName: '',
         lastName: 'Smith',
@@ -77,7 +77,7 @@ test.describe('Checkout Flow', () => {
       await checkoutPage.continue();
     });
 
-    await allure.step('Verify error message is shown for missing First Name', async () => {
+    await allure.step('Verificar que se muestra el mensaje de error por nombre faltante', async () => {
       await checkoutPage.assertErrorMessage('First Name is required');
     });
   });

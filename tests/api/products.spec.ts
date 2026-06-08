@@ -6,30 +6,30 @@ import {
   DummyProduct,
 } from '../../utils/api-client';
 
-test.describe('API - Products', () => {
+test.describe('API - Productos', () => {
   let client: DummyJsonClient;
 
   test.beforeEach(({ request }) => {
     client = new DummyJsonClient(request);
   });
 
-  test('API-03: GET /products with pagination returns correct number of items', async () => {
+  test('API-03: GET /products con paginación retorna la cantidad correcta de items', async () => {
     await allure.epic('DummyJSON API');
-    await allure.feature('Products');
-    await allure.story('List products with pagination');
+    await allure.feature('Productos');
+    await allure.story('Listar productos con paginación');
     await allure.severity('critical');
 
     let response: Awaited<ReturnType<DummyJsonClient['getProducts']>>;
 
-    await allure.step('Send GET /products?limit=10&skip=0', async () => {
+    await allure.step('Enviar GET /products?limit=10&skip=0', async () => {
       response = await client.getProducts({ limit: 10, skip: 0 });
     });
 
-    await allure.step('Verify status 200', async () => {
+    await allure.step('Verificar estado 200', async () => {
       expect(response!.status()).toBe(200);
     });
 
-    await allure.step('Verify response returns exactly 10 products', async () => {
+    await allure.step('Verificar que la respuesta retorna exactamente 10 productos', async () => {
       const body: DummyProductsResponse = await response!.json();
       expect(body.products).toHaveLength(10);
       expect(body.limit).toBe(10);
@@ -37,7 +37,7 @@ test.describe('API - Products', () => {
       expect(body.total).toBeGreaterThan(10);
     });
 
-    await allure.step('Verify each product has required fields', async () => {
+    await allure.step('Verificar que cada producto tiene los campos requeridos', async () => {
       const body: DummyProductsResponse = await response!.json();
       for (const product of body.products) {
         expect(product.id).toBeGreaterThan(0);
@@ -47,30 +47,30 @@ test.describe('API - Products', () => {
     });
   });
 
-  test('API-05: POST /products/add creates a product and returns id with all fields', async () => {
+  test('API-05: POST /products/add crea un producto y retorna id con todos los campos', async () => {
     await allure.epic('DummyJSON API');
-    await allure.feature('Products');
-    await allure.story('Create product');
+    await allure.feature('Productos');
+    await allure.story('Crear producto');
     await allure.severity('normal');
 
     const payload = {
-      title: 'VMetrix Test Product',
+      title: 'Producto de prueba VMetrix',
       price: 49.99,
       stock: 100,
-      description: 'Created by automated test',
+      description: 'Creado por prueba automatizada',
     };
 
     let response: Awaited<ReturnType<DummyJsonClient['createProduct']>>;
 
-    await allure.step('Send POST /products/add with valid payload', async () => {
+    await allure.step('Enviar POST /products/add con payload válido', async () => {
       response = await client.createProduct(payload);
     });
 
-    await allure.step('Verify status 201', async () => {
+    await allure.step('Verificar estado 201', async () => {
       expect(response!.status()).toBe(201);
     });
 
-    await allure.step('Verify response body contains new product id and submitted fields', async () => {
+    await allure.step('Verificar que el cuerpo contiene el id del producto y los campos enviados', async () => {
       const body: DummyProduct = await response!.json();
       expect(body.id).toBeGreaterThan(0);
       expect(body.title).toBe(payload.title);
