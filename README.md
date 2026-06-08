@@ -50,9 +50,9 @@ npm run test:api
 npm run test:headed
 ```
 
-### Pruebas UI con reporte Allure automático
+### Pruebas UI con reporte Allure automático (recomendado)
 ```bash
-npm run test:ui:report
+npm run test; npm run report
 ```
 
 ### Ejecutar un archivo spec específico
