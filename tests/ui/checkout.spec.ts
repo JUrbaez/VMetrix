@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/saucedemo';
 import * as allure from 'allure-js-commons';
 
 test.describe('Checkout Flow', () => {
-  test('UI-08: Complete full checkout flow (happy path)', async ({
+  test('UI-05: Verificar el flujo de checkout', async ({
     inventoryPage,
     cartPage,
     checkoutPage,
@@ -50,7 +50,7 @@ test.describe('Checkout Flow', () => {
     });
   });
 
-  test('UI-09: Attempt checkout with missing First Name field', async ({
+  test('UI-07: Finalizar proceso de checkout sin introducir ningun dato del usuario', async ({
     inventoryPage,
     cartPage,
     checkoutPage,

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test tests/ui",
+    "test:ui:report": "playwright test tests/ui && allure generate allure-results --clean -o allure-report && allure open allure-report",
     "test:api": "playwright test tests/api",
     "test:headed": "playwright test tests/ui --headed",
     "report": "allure generate allure-results --clean -o allure-report && allure open allure-report",

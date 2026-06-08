@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/saucedemo';
 import * as allure from 'allure-js-commons';
 
 test.describe('Product Detail Page', () => {
-  test('UI-07: View product detail page and verify all fields are displayed', async ({
+  test('UI-01: View product detail page and verify all fields are displayed', async ({
     inventoryPage,
     loggedInPage,
   }) => {
