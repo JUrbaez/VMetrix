@@ -6,6 +6,12 @@ export type SortOption =
   | 'lohi'
   | 'hilo';
 
+export interface ProductInfo {
+  name: string;
+  description: string;
+  price: string;
+}
+
 export class InventoryPage {
   readonly page: Page;
   readonly productList: Locator;
@@ -38,9 +44,12 @@ export class InventoryPage {
     return texts.map((t) => parseFloat(t.replace('$', '')));
   }
 
-  async addToCart(productName: string): Promise<void> {
-    const item = this.page.locator('.inventory_item', { hasText: productName });
-    await item.locator('button').click();
+  async addToCart(productName: string): Promise<ProductInfo> {
+    const item = this.page.getByTestId('inventory-item').filter({ hasText: productName });
+    const description = (await item.locator('.inventory_item_desc').textContent() ?? '').trim();
+    const price = (await item.getByTestId('inventory-item-price').textContent() ?? '').trim();
+    await item.getByRole('button', { name: 'Add to cart' }).click();
+    return { name: productName, description, price };
   }
 
   async removeFromInventory(productName: string): Promise<void> {

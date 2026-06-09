@@ -8,7 +8,7 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.cartItems = page.locator('[data-test="inventory-item"]');
+    this.cartItems = page.getByTestId('inventory-item');
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
     this.continueShoppingButton = page.getByRole('button', { name: 'Continue Shopping' });
   }

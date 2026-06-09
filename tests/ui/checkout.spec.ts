@@ -1,5 +1,6 @@
 import { test, expect } from '../../fixtures/saucedemo';
 import * as allure from 'allure-js-commons';
+import { ProductInfo } from '../../pages/InventoryPage';
 
 test.describe('Flujo de checkout', () => {
   test('UI-05: Verificar el flujo de checkout', async ({
@@ -13,9 +14,11 @@ test.describe('Flujo de checkout', () => {
     await allure.story('Checkout exitoso');
     await allure.severity('blocker');
 
+    let product: ProductInfo;
+
     await allure.step('Navegar al inventario y agregar un producto al carrito', async () => {
       await inventoryPage.goto();
-      await inventoryPage.addToCart('Sauce Labs Backpack');
+      product = await inventoryPage.addToCart('Sauce Labs Backpack');
     });
 
     await allure.step('Ir al carrito', async () => {
@@ -40,6 +43,7 @@ test.describe('Flujo de checkout', () => {
 
     await allure.step('Verificar el resumen del pedido', async () => {
       await checkoutPage.assertOnStepTwo();
+      await checkoutPage.assertItemInSummary(product);
       const total = await checkoutPage.getSummaryTotal();
       expect(total).toContain('Total');
     });
