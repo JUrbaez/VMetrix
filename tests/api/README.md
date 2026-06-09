@@ -61,16 +61,14 @@ No se requiere API key. Para las pruebas de login:
 
 ## Reporte Allure
 
-Después de ejecutar las pruebas:
-
 ```bash
+# Reporte solo API (ejecutar antes: npm run test:api)
 npm run report
-```
 
-Para correr todas las pruebas (UI + API) y abrir el reporte de una vez:
-
-```bash
+# Reporte completo (UI + API)
 npm run test:report
 ```
+
+> `npm test` y `npm run test:report` limpian `allure-results/` antes de ejecutar para evitar duplicados en el reporte.
 
 Los resultados se guardan en `allure-results/` y el reporte HTML en `allure-report/`.

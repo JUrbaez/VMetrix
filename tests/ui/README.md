@@ -10,7 +10,7 @@ Pruebas automatizadas de la tienda [SauceDemo](https://www.saucedemo.com) con Pl
 |----|---------|------------|
 | UI-01 | `product-detail.spec.ts` | Detalle de producto: nombre, descripción, precio, imagen y botón Add to cart |
 | UI-03 | `inventory.spec.ts` | Remover productos del carrito desde la página de inventario |
-| UI-05 | `checkout.spec.ts` | Flujo completo de checkout (happy path) |
+| UI-05 | `checkout.spec.ts` | Flujo completo de checkout |
 | UI-06 | `inventory.spec.ts` | Ordenar productos de menor a mayor precio |
 | UI-07 | `checkout.spec.ts` | Checkout sin datos del usuario (validación de error) |
 
@@ -27,8 +27,11 @@ npm run test:ui
 # Con navegador visible
 npm run test:headed
 
-# UI + reporte Allure
+# UI + reporte Allure (solo pruebas UI)
 npm run test:ui:report
+
+# Todas las pruebas (UI + API) + reporte Allure
+npm run test:report
 
 # Un archivo específico
 npx playwright test tests/ui/checkout.spec.ts
@@ -66,10 +69,14 @@ Las pruebas UI usan el fixture `saucedemo.ts`, que inicia sesión con `standard_
 
 ## Reporte Allure
 
-Después de ejecutar las pruebas:
-
 ```bash
-npm run report
+# Reporte solo UI
+npm run test:ui:report
+
+# Reporte completo (UI + API)
+npm run test:report
 ```
+
+> `npm test` y `npm run test:report` limpian `allure-results/` antes de ejecutar para evitar duplicados en el reporte.
 
 Los resultados se guardan en `allure-results/` y el reporte HTML en `allure-report/`.

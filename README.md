@@ -50,10 +50,22 @@ npm run test:api
 npm run test:headed
 ```
 
-### Pruebas UI con reporte Allure automático (recomendado)
+### Pruebas UI con reporte Allure
 ```bash
-npm run test; npm run report
+npm run test:ui:report
 ```
+
+### Todas las pruebas con reporte Allure (recomendado)
+```bash
+npm run test:report
+```
+
+### Solo generar reporte de la última ejecución
+```bash
+npm run report
+```
+
+> `npm test` limpia `allure-results/` antes de ejecutar para evitar pruebas duplicadas en el reporte.
 
 ### Ejecutar un archivo spec específico
 ```bash
@@ -106,17 +118,15 @@ VMetrix/
 │   └── api-client.ts         # Cliente HTTP tipado para la API DummyJSON
 ├── tests/
 │   ├── ui/
+│   │   ├── README.md              # Documentación de pruebas UI
 │   │   ├── inventory.spec.ts      # UI-03, UI-06
 │   │   ├── product-detail.spec.ts # UI-01
 │   │   └── checkout.spec.ts       # UI-05, UI-07
 │   └── api/
+│       ├── README.md              # Documentación de pruebas API
 │       ├── auth.spec.ts           # API-01, API-02
 │       ├── products.spec.ts       # API-03, API-05
 │       └── users.spec.ts          # API-08
-├── test-cases/
-│   └── test-cases.md         # 20 casos de prueba diseñados (UI + API)
-├── bugs/
-│   └── bugs-report.md        # 5 bugs encontrados y documentados
 ├── allure-results/           # Generado en ejecución (gitignored)
 ├── allure-report/            # Generado en ejecución (gitignored)
 ├── playwright.config.ts
@@ -177,17 +187,10 @@ No requiere API key. Las pruebas de auth usan: `username: emilys`, `password: em
 
 ---
 
-## Bugs encontrados
+## Documentación por tipo de prueba
 
-Ver [`bugs/bugs-report.md`](bugs/bugs-report.md) para la lista completa. Resumen:
-
-| ID     | Descripción                                                        | Severidad |
-|--------|--------------------------------------------------------------------|-----------|
-| BUG-01 | El dropdown de ordenamiento muestra A→Z pero los productos no están ordenados | Media |
-| BUG-02 | El badge del carrito persiste brevemente después de completar la orden | Baja |
-| BUG-03 | Código postal acepta entrada no numérica sin validación              | Media     |
-| BUG-04 | `problem_user`: todas las imágenes muestran la misma imagen incorrecta | Alta   |
-| BUG-05 | Mensaje de error de `locked_out_user` no ofrece guía accionable      | Baja      |
+- [Pruebas UI](tests/ui/README.md)
+- [Pruebas API](tests/api/README.md)
 
 ---
 
